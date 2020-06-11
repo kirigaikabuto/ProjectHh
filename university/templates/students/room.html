@@ -1,0 +1,72 @@
+
+
+{%extends 'students/room_base.html'%}
+
+{%block title%}
+Личный кабинет
+{%endblock%}
+
+{%block content%}
+<div class="container">
+        <div class="col-xs-12">
+          <form class="header-job-search" method="post">
+              {%csrf_token%}
+
+            <div class="input-keyword">
+
+              <input type="text" class="form-control" placeholder="Название" name="name">
+            </div>
+               <div  class="btn-search" style="color:black;">
+               <select name="option">
+                   <option value="empty"></option>
+                   <option value="company">Компания</option>
+                   <option value="speciality">Специальность</option>
+                   <option value="elective">Электив</option>
+                   <option value="vacancy">Вакансия</option>
+               </select>
+          </div>
+            <div class="btn-search">
+              <button class="btn btn-primary" type="submit">Найти работу</button>
+            </div>
+          </form>
+        </div>
+
+</div>
+
+
+          <header class="section-header">
+
+            <h2></h2>
+          </header>
+
+          <div class="row item-blocks-connected">
+              {% if error%}
+              {{error}}
+            <!-- END Job item -->
+              {%else%}
+
+            <!-- Job item -->
+            {%for i in vacancies%}
+            <div class="col-xs-12">
+              <a class="item-block" href="job-detail.html">
+                <header>
+
+                  <div class="hgroup" >
+                    <h4>{{i.name}}</h4>
+                    <h5>{{i.company.name}}</h5>
+                      <h5>Специальность:{{i.speciality.name}}</h5>
+                       <h5>Электив:{{i.elective.name}}</h5>
+                  </div>
+                  <div class="header-meta">
+                    <span class="location">{{i.company.address}}</span>
+                    <span class="label label-success">Полный рабочий день</span>
+                  </div>
+                </header>
+              </a>
+            </div>
+           {%endfor%}
+              {%endif%}
+          </div>
+
+
+{%endblock%}

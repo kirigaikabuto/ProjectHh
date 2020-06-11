@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        {%block title%}
+        {%endblock%}
+    </title>
+
+    <!-- Styles -->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+  </head>
+
+  <body class="nav-on-header">
+
+    <!-- Navigation bar -->
+    <nav class="navbar">
+      <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+          <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+           <div class="logo-wrapper">
+            <a class="logo" href="{%url 'main_page'%}"><img src="https://www.iitu.kz/img/logo.png" alt="logo"></a>
+            <a class="logo-alt" href="{%url 'main_page'%}"><img src="https://www.iitu.kz/img/logo.png" alt="logo-alt"></a>
+          </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <!-- User account -->
+        {%if user.is_authenticated %}
+          <div class="pull-right user-login">
+          <a class="btn btn-sm btn-primary" href="{%url 'userLogout' %}">Выйти</a> <!-- или <a href="user-register.html">register</a> -->
+        </div>
+        <div class="pull-right user-login">
+          <a class="btn btn-sm btn-primary" href="{%url 'studentPrivate' %}">Личный Кабинет</a> <!-- или <a href="user-register.html">register</a> -->
+        </div>
+
+        {%else%}
+         <div class="pull-right user-login">
+          <a class="btn btn-sm btn-primary" href="{%url 'studentLogin' %}">Студент</a> <!-- или <a href="user-register.html">register</a> -->
+        </div>
+
+        <div class="pull-right user-login">
+          <a class="btn btn-sm btn-primary" href="user-login.html">Компания</a> <!-- или <a href="user-register.html">register</a> -->
+        </div>
+
+        {%endif%}
+        <!-- END User account -->
+
+        <!-- Navigation menu -->
+        <ul class="nav-menu">
+          <li>
+            <a class="active" href="{%url 'company_main'%}">Работодателям</a>
+
+          </li>
+          <li>
+            <a href="#">Студентам</a>
+
+          </li>
+        </ul>
+
+
+    </nav>
+    <!-- END Navigation bar -->
+
+
+
+{%block content%}
+
+{%endblock%}
+<footer class="site-footer">
+
+      <!-- Top section -->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h6>About</h6>
+            <p class="text-justify">Вебсайт для поддержки студентов и выпускников в поиске работы ,стажировки, прохождения практики университета IITU .</p>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Company</h6>
+            <ul class="footer-links">
+              <li><a >О нас</a></li>
+              <li><a >Как мы работаем</a></li>
+              <li><a >Центр поддержки</a></li>
+              <li><a >Правила сайта</a></li>
+              <li><a >Связаться с нами</a></li>
+            </ul>
+          </div>
+
+
+        <hr>
+      </div>
+      <!-- END Top section -->
+
+      <!-- Bottom section -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyrights &copy; 2016 All Rights Reserved by <a href="#">IITU</a>.</p>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+              <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- END Bottom section -->
+      </div>
+</footer>
+    <!-- END Site footer -->
+
+
+    <!-- Back to top button -->
+    <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+    <!-- END Back to top button -->
+
+    <!-- Scripts -->
+    <script src="{%static 'assets/js/app.min.js' %}"></script>
+    <script src="{%static 'assets/js/custom.js' %}"></script>
+
+  </body>
+</html>

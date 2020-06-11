@@ -1,0 +1,140 @@
+
+
+{%extends 'students/room_base.html'%}
+
+{%block title%}
+Личный кабинет
+{%endblock%}
+
+{%block content%}
+{%if user.first_name%}
+<div class="login-block">
+
+        <h1>Профиль</h1>
+
+        <form action="" method="post">
+            {%csrf_token%}
+          <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-user"></i></span>
+              <input type="text" class="form-control" placeholder="Имя" name="first_name" value="{{profile.first_name}}">
+            </div>
+          </div>
+            <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-user"></i></span>
+              <input type="text" class="form-control" placeholder="Фамилия" name="last_name" value="{{profile.last_name}}">
+            </div>
+          </div>
+          <hr class="hr-xs">
+
+          <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-email"></i></span>
+              <input type="text" class="form-control" placeholder="Почта" name="email"  value="{{request.user.email}}">
+            </div>
+          </div>
+            <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon">Дата рождения</i></span>
+
+              <input type="date" class="form-control" name="datebirth"  value="{{profile.datebirth|date:'yy-m-d'}}">
+            </div>
+          </div>
+          <hr class="hr-xs">
+            <div class="form-group">
+            <div class="input-group">
+                  <span class="input-group-addon">Специальность</span>
+                <select name="speciality" class="form-control">
+
+                    <option value="{{profile.speciality.pk}}">{{profile.speciality.name}}</option>
+
+                </select>
+            </div>
+          </div>
+
+
+             <hr class="hr-xs">
+            <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">Электив</span>
+                <select name="elective" class="form-control">
+                    <option value="{{profile.elective.pk}}">{{profile.elective.name}}</option>
+                </select>
+            </div>
+          </div>
+            {%if error%}
+           <p style="color:red">{{error}}</p>
+            {%endif%}
+          <button class="btn btn-primary btn-block" type="submit">Обновить Профиль</button>
+
+        </form>
+
+</div>
+{%else%}
+<div class="login-block">
+
+        <h1>Создать Профиль</h1>
+
+        <form action="" method="post">
+            {%csrf_token%}
+          <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-user"></i></span>
+              <input type="text" class="form-control" placeholder="Имя" name="first_name">
+            </div>
+          </div>
+            <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-user"></i></span>
+              <input type="text" class="form-control" placeholder="Фамилия" name="last_name">
+            </div>
+          </div>
+          <hr class="hr-xs">
+
+          <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-email"></i></span>
+              <input type="text" class="form-control" placeholder="Почта" name="email">
+            </div>
+          </div>
+            <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon">Дата рождения</i></span>
+              <input type="date" class="form-control" name="datebirth">
+            </div>
+          </div>
+          <hr class="hr-xs">
+            <div class="form-group">
+            <div class="input-group">
+                  <span class="input-group-addon">Специальность</span>
+                <select name="speciality" class="form-control">
+                           {%for i in specialities%}
+                    <option value="{{i.pk}}">{{i.name}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+          </div>
+
+
+             <hr class="hr-xs">
+            <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">Электив</span>
+                <select name="elective" class="form-control">
+                   {%for i in elective%}
+                    <option value="{{i.pk}}">{{i.name}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+          </div>
+            {%if error%}
+           <p style="color:red">{{error}}</p>
+            {%endif%}
+          <button class="btn btn-primary btn-block" type="submit">Создать Профиль</button>
+
+        </form>
+
+</div>
+{%endif%}
+{%endblock%}
