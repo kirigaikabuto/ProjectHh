@@ -1,0 +1,130 @@
+{%extends 'students/room_base.html'%}
+{%load static%}
+{%block title%}
+Список компаний
+{%endblock%}
+
+{%block content%}
+<style>
+
+</style>
+
+        <div class="header-detail" style="background-color:white;color:black">
+
+          <div class="hgroup">
+            <h1>{{company.name}}</h1>
+            <h3>{{company.type.name}}</h3>
+          </div>
+
+          <hr>
+            <p class="lead">{{company.description}}</p>
+          <ul class="details cols-3">
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span>{{company.address}}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-globe"></i>
+              <a href="#">Google.com</a>
+            </li>
+
+            <li>
+              <i class="fa fa-users"></i>
+              <span>50,000 - 70,000 employer</span>
+            </li>
+
+            <li>
+              <i class="fa fa-birthday-cake"></i>
+              <span>From 1998</span>
+            </li>
+
+            <li>
+              <i class="fa fa-phone"></i>
+              <span>(+1) 123 456 7890</span>
+            </li>
+
+            <li>
+              <i class="fa fa-envelope"></i>
+              <a href="#">info@google.com</a>
+            </li>
+          </ul>
+
+          <div class="button-group" style="background-color:#eee;">
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+              <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+
+
+          </div>
+
+          <header class="section-header">
+            <span>About</span>
+            <h2>Company detail</h2>
+          </header>
+
+          <p>{{company.description}}</p>
+      <section id="open-positions" class="bg-alt">
+
+          <header class="section-header">
+            <span>vacancies</span>
+            <h2>Open positions</h2>
+          </header>
+
+          <div class="row">
+
+            <!-- Job item -->
+              {%for i in vacancies%}
+            <div class="col-xs-12">
+              <a class="item-block" href="{%url 'vacancyDetail' pk=i.pk%}">
+                <header>
+
+                  <div class="hgroup">
+                    <h4>{{i.name}}</h4>
+
+                  </div>
+                  <time datetime="2016-03-10 20:00"> {{i.created_date}}</time>
+                </header>
+
+                <div class="item-body">
+                    <p>{{i.description}}</p>
+                </div>
+
+                <footer>
+                  <ul class="details cols-3">
+                    <li>
+                      <i class="fa fa-map-marker"></i>
+                      <span>{{i.city}}</span>
+                    </li>
+
+                    <li>
+                      <i class="fa fa-money"></i>
+                      <span>$90,000 - $110,000 / year</span>
+                    </li>
+
+                    <li>
+                      <i class="fa fa-certificate"></i>
+                      <span>{{i.speciality.name}}->{{i.elective.name}}</span>
+                    </li>
+                  </ul>
+                </footer>
+              </a>
+
+
+            </div>
+            <!-- END Job item -->
+                {%endfor%}
+          </div>
+      </section>
+          </div>
+        </div>
+
+
+
+
+{%endblock%}
+

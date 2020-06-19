@@ -1,0 +1,44 @@
+{%extends 'main/base.html'%}
+{%load static%}
+{%block title%}
+Добавить навык
+{%endblock%}
+
+{%block content%}
+
+  <main >
+
+ <div class="login-block">
+
+        <form action="" method="post">
+          {%csrf_token%}
+          <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-info"></i></span>
+              <input type="text" class="form-control" placeholder="Создать новый навык" name="skill_name">
+            </div>
+          </div>
+            <hr class="hr-xs">
+              <div class="form-group">
+                <div class="input-group">
+                 <span class="input-group-addon">Выбрать новый навык</span>
+                    <select name="skill_select">
+                        <option value="">Выбрать</option>
+                        {%for i in skills%}
+                      <option>{{i.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+              </div>
+          <hr class="hr-xs">
+          <button class="btn btn-primary btn-block" type="submit">Добавить</button>
+          {%if error%}
+          {{error}}
+          {%endif%}
+
+
+        </form>
+      </div>
+    </main>
+{%endblock%}
+

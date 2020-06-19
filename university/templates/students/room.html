@@ -48,7 +48,7 @@
             <!-- Job item -->
             {%for i in vacancies%}
             <div class="col-xs-12">
-              <a class="item-block" href="job-detail.html">
+              <a class="item-block" href="{%url 'vacancyDetail' pk=i.pk %}">
                 <header>
 
                   <div class="hgroup" >

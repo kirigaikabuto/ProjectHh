@@ -1,0 +1,39 @@
+{%extends 'students/room_base.html'%}
+{%load static%}
+{%block title%}
+Список компаний
+{%endblock%}
+
+{%block content%}
+
+
+
+          <div class="row">
+
+
+
+            <!-- Company detail -->
+              {%for i in companies%}
+            <div class="col-xs-12">
+              <a class="item-block" href="{%url 'companyDetail' pk=i.company.pk %}">
+                <header>
+                  <div class="hgroup">
+                    <h4>{{i.company.name}}</h4>
+                    <h5>{{i.company.type.name}}</h5>
+                  </div>
+                  <span class="open-position">{{i.vacancy_count}} open position</span>
+                </header>
+
+                <div class="item-body">
+                  <p>{{i.company.description}}</p>
+                </div>
+              </a>
+            </div>
+              {%endfor%}
+
+
+          </div>
+
+
+{%endblock%}
+

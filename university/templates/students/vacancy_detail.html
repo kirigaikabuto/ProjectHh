@@ -1,0 +1,101 @@
+{%extends 'students/room_base.html'%}
+{%load static%}
+{%block title%}
+Список компаний
+{%endblock%}
+
+{%block content%}
+<div class="header-detail" style="background-color:white;color:black">
+          <div class="hgroup">
+            <h1>{{vacancy.name}}</h1>
+            <h3><a href="#">{{vacancy.company.name}}</a></h3>
+          </div>
+
+          <time datetime="2016-03-03 20:00"> {{vacancy.created_date}}</time>
+          <hr>
+            <p class="lead">{{vacancy.description}}</p>
+          <ul class="details cols-3">
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span>{{vacancy.company.address}}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-briefcase"></i>
+              <span>Full time</span>
+            </li>
+
+            <li>
+              <i class="fa fa-money"></i>
+              <span>$90,000 - $110,000 / year</span>
+            </li>
+
+            <li>
+              <i class="fa fa-clock-o"></i>
+              <span>40h / week</span>
+            </li>
+
+            <li>
+              <i class="fa fa-flask"></i>
+              <span>2+ years experience</span>
+            </li>
+
+            <li>
+              <i class="fa fa-certificate"></i>
+              <a href="#">{{vacancy.speciality.name}}->{{vacancy.elective.name}}</a>
+            </li>
+          </ul>
+           {%if choice%}
+            <div class="action-buttons">
+              <a class="btn btn-success" href="#">Request was accepted</a>
+            </div>
+
+            {%else%}
+               <div class="action-buttons">
+              <a class="btn btn-success" href="{%url 'choiceVacancy' pk=vacancy.pk%}">Apply now</a>
+            </div>
+            {%endif%}
+
+      <!-- Job detail -->
+      <section>
+
+
+          <p>{{vacancy.company.description}}</p>
+          <br>
+          <h4>Responsibilities</h4>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non.</p>
+          <ul>
+            <li>Build next-generation web applications with a focus on the client side.</li>
+            <li>Redesign UI's, implement new UI's, and pick up Java as necessary.</li>
+            <li>Explore and design dynamic and compelling consumer experiences.</li>
+            <li>Design and build scalable framework for web applications.</li>
+          </ul>
+
+          <br>
+          <h4>Minimum qualifications</h4>
+          <ul>
+            <li>BA/BS degree in a technical field or equivalent practical experience.  </li>
+            <li>2 years of relevant work experience in software development.</li>
+            <li>Programming experience in C, C++ or Java.</li>
+            <li>Experience with AJAX, HTML and CSS.</li>
+          </ul>
+
+          <br>
+          <h4>Preferred qualifications</h4>
+          <ul>
+            <li>Interest in user interface design.</li>
+            <li>Web application development experience.</li>
+            <li>Experience working on cross-browser platforms.</li>
+            <li>Development experience designing object-oriented JavaScript.</li>
+            <li>Experience with user interface frameworks such as XUL, Flex and XAML.</li>
+            <li>Knowledge of user interface design.</li>
+          </ul>
+
+
+      </section>
+      <!-- END Job detail -->
+
+        </div>
+
+{%endblock%}
+

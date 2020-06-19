@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from . import models
-from company.models import Vacancy
+from company.models import Vacancy, Company, ChoiceVacancy
+
+
 # Create your views here.
 
 
@@ -31,9 +33,9 @@ def profileCreate(request):
 
 
 def studentMain(request):
-    error=""
+    error = ""
     vacancies = None
-    if request.method=="POST":
+    if request.method == "POST":
         name = request.POST['name']
         option = request.POST['option']
         if option == "empty" or option == "vacancy":
@@ -44,15 +46,15 @@ def studentMain(request):
             vacancies = Vacancy.objects.filter(speciality__name__contains=name)
         elif option == "elective":
             vacancies = Vacancy.objects.filter(elective__name__contains=name)
-        if len(vacancies)==0:
-            error="Нет вакансий"
+        if len(vacancies) == 0:
+            error = "Нет вакансий"
     else:
         vacancies = Vacancy.objects.all()
     context = {
         "vacancies": vacancies,
-        "error":error
+        "error": error
     }
-    return render(request, "students/room.html",context)
+    return render(request, "students/room.html", context)
 
 
 def userLogout(request):
@@ -76,7 +78,7 @@ def studentProfile(request):
             electiveObject = models.Elective.objects.get(pk=elective)
             studentProfile = models.Student()
             if request.user.first_name:
-                studentProfile = models.Student.objects.get(user = request.user)
+                studentProfile = models.Student.objects.get(user=request.user)
             studentProfile.elective = electiveObject
             studentProfile.speciality = specialityObject
             studentProfile.datebirth = datebirth
@@ -100,7 +102,119 @@ def studentProfile(request):
     }
     if request.user.first_name:
         profile = models.Student.objects.get(user=request.user)
-        context ={
-            "profile":profile
+        skills = models.StudentSkills.objects.filter(student__user=request.user)
+        context = {
+            "profile": profile,
+            "skills": skills
         }
     return render(request, "students/profile.html", context)
+
+
+def skill_form(request):
+    error = ""
+    if request.method == "POST":
+        skill_name = request.POST['skill_name']
+        skill_select = request.POST['skill_select']
+        if len(skill_name) == 0 and len(skill_select) == 0:
+            error = "Нужно написать новое название или выбрать из существующих"
+        if len(skill_name) != 0 and len(skill_select) != 0:
+            error = "Нужно либо написать новое название либо выбрать существующе"
+        else:
+            new_skill_name = ""
+            skill = None
+            if len(skill_name) != 0:
+                skills = models.Skill.objects.filter(name=skill_name)
+                if len(skills) != 0:
+                    error = "Такой навык уже существует выберите его"
+                new_skill_name = skill_name
+                skill = models.Skill(name=new_skill_name)
+                skill.save()
+            elif len(skill_select) != 0:
+                new_skill_name = skill_select
+                skill = models.Skill.objects.get(name=new_skill_name)
+            if error == "":
+                skill_connect = models.StudentSkills(skill=skill, student=models.Student.objects.get(user=request.user))
+                skill_connect.save()
+                return redirect("studentProfile")
+    skills_choiced = models.StudentSkills.objects.filter(student__user=request.user)
+    all_skills = models.Skill.objects.all()
+    needed_skills = []
+    for i in all_skills:
+        is_exist = False
+        for j in skills_choiced:
+            if i.name == j.skill.name:
+                is_exist = True
+                break
+        if not is_exist:
+            needed_skills.append(i)
+
+    context = {
+        "error": error,
+        "skills": needed_skills
+    }
+    return render(request, "students/skill_form.html", context=context)
+
+
+def company_list(request):
+    companies = Company.objects.all()
+    all_info = []
+    for i in companies:
+        vacancies = Vacancy.objects.filter(company=i)
+        all_info.append({
+            "company": i,
+            "vacancy_count": len(vacancies)
+        })
+    context = {
+        "companies": all_info
+    }
+    return render(request, "students/company_list.html", context=context)
+
+
+def company_detail(request, pk):
+    company = Company.objects.get(pk=pk)
+    vacancies = Vacancy.objects.filter(company=company)
+    context = {
+        "company": company,
+        "vacancies": vacancies
+    }
+    return render(request, "students/company_detail.html", context=context)
+
+
+def vacancy_detail(request, pk):
+    vacancy = Vacancy.objects.get(pk=pk)
+    student = models.Student.objects.get(user=request.user)
+
+    choice_was=False
+    choice = ChoiceVacancy.objects.filter(student=student,vacancy=vacancy)
+    print(choice)
+    if len(choice)!=0:
+        choice_was = True
+    context = {
+        "vacancy": vacancy,
+        "choice":choice_was
+    }
+    return render(request, "students/vacancy_detail.html", context=context)
+
+
+def choice_vacancy(request, pk):
+    vacancy = Vacancy.objects.get(pk=pk)
+    student = models.Student.objects.get(user=request.user)
+    action = ChoiceVacancy(vacancy=vacancy, student=student)
+    action.save()
+    return redirect("studentProfile")
+
+
+def vacancies_choiced(request):
+    vacancies = ChoiceVacancy.objects.filter(student__user=request.user)
+    context={
+        "vacancies":vacancies
+    }
+    return render(request,"students/vacancies_choiced.html",context=context)
+
+
+def vacancies_success(request):
+    vacancies = ChoiceVacancy.objects.filter(success=True)
+    context = {
+        "vacancies": vacancies
+    }
+    return render(request, "students/vacancies_success.html", context=context)

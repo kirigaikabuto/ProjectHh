@@ -63,6 +63,19 @@
                 </select>
             </div>
           </div>
+   <hr class="hr-xs">
+               <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">Навыки:</span>
+                <p style="color:black;float:left;"  class="form-control">
+                     {%for i in skills%}
+                    <span style="float:left"><a href="#">{{i.skill.name}},</a></span>
+                      {%endfor%}
+                </p>
+
+            </div>
+          </div>
+             <a href="{%url 'profileSkillForm'%}">Добавить новые навыки</a>
             {%if error%}
            <p style="color:red">{{error}}</p>
             {%endif%}
