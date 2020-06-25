@@ -1,0 +1,66 @@
+{%extends 'students/room_base.html'%}
+{%load static%}
+{%block title%}
+Список компаний
+{%endblock%}
+
+{%block content%}
+<div class="header-detail" style="background-color:white;color:black">
+          <div class="hgroup">
+            <h1>{{vacancy.name}}</h1>
+
+          </div>
+
+          <time datetime="2016-03-03 20:00"> {{vacancy.created_date}}</time>
+          <hr>
+            <p class="lead">{{vacancy.description}}</p>
+          <ul class="details cols-3">
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span>{{vacancy.company.address}}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-briefcase"></i>
+              <span>Full time</span>
+            </li>
+
+            <li>
+              <i class="fa fa-money"></i>
+              <span>$90,000 - $110,000 / year</span>
+            </li>
+
+            <li>
+              <i class="fa fa-clock-o"></i>
+              <span>40h / week</span>
+            </li>
+
+            <li>
+              <i class="fa fa-flask"></i>
+              <span>2+ years experience</span>
+            </li>
+
+            <li>
+              <i class="fa fa-certificate"></i>
+              <a href="#">{{vacancy.speciality.name}}->{{vacancy.elective.name}}</a>
+            </li>
+          </ul>
+
+
+      <!-- Job detail -->
+      <section>
+
+
+          <br>
+          <h4>Заявки</h4>
+          {%for i in senders%}
+          <a href="{%url 'student_detail' pk=i.student.pk id=vacancy.pk%}">{{i.student.user.username}}</a>
+          {%endfor%}
+
+      </section>
+      <!-- END Job detail -->
+
+        </div>
+
+{%endblock%}
+

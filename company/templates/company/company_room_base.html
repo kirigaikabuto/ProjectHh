@@ -43,9 +43,6 @@
           <div class="pull-right user-login">
           <a class="btn btn-sm btn-primary" href="{%url 'userLogout' %}">Выйти</a> <!-- или <a href="user-register.html">register</a> -->
         </div>
-        <div class="pull-right user-login">
-          <a class="btn btn-sm btn-primary" href="{%url 'studentPrivate' %}">Личный Кабинет</a> <!-- или <a href="user-register.html">register</a> -->
-        </div>
 
         {%else%}
          <div class="pull-right user-login">
@@ -53,7 +50,7 @@
         </div>
 
         <div class="pull-right user-login">
-          <a class="btn btn-sm btn-primary" href="{%url 'company_signin'%}">Компания</a> <!-- или <a href="user-register.html">register</a> -->
+          <a class="btn btn-sm btn-primary" href="user-login.html">Компания</a> <!-- или <a href="user-register.html">register</a> -->
         </div>
 
         {%endif%}
@@ -62,13 +59,9 @@
         <!-- Navigation menu -->
         <ul class="nav-menu">
           <li>
-            <a class="active" href="{%url 'company_main'%}">Работодателям</a>
 
           </li>
-          <li>
-            <a href="#">Студентам</a>
 
-          </li>
         </ul>
 
 
@@ -76,10 +69,16 @@
     <!-- END Navigation bar -->
 
 
+    <!-- Site header -->
+    <header class="site-header size-lg text-center">
+     <div class="container">
+      {%block content%}
 
-{%block content%}
+          {%endblock%}
 
-{%endblock%}
+      </div>
+    </header>
+
 <footer class="site-footer">
 
       <!-- Top section -->

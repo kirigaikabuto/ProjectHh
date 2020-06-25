@@ -213,7 +213,7 @@ def vacancies_choiced(request):
 
 
 def vacancies_success(request):
-    vacancies = ChoiceVacancy.objects.filter(success=True)
+    vacancies = ChoiceVacancy.objects.filter(success=True,student__user=request.user)
     context = {
         "vacancies": vacancies
     }

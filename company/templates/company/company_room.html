@@ -1,0 +1,30 @@
+
+
+{%extends 'company/company_room_base.html'%}
+
+{%block title%}
+Личный кабинет
+{%endblock%}
+
+{%block content%}
+
+{%for i in vacancies%}
+            <div class="col-xs-12">
+              <a class="item-block" href="{%url 'company_vacancy' pk=i.pk %}">
+                <header>
+
+                  <div class="hgroup" >
+                    <h4>{{i.name}}</h4>
+                       <h5>Специальность:{{i.speciality.name}}</h5>
+                       <h5>Электив:{{i.elective.name}}</h5>
+                  </div>
+                  <div class="header-meta">
+                    <span class="location">{{i.company.address}}</span>
+                    <span class="label label-success">Полный рабочий день</span>
+                  </div>
+                </header>
+              </a>
+            </div>
+{%endfor%}
+
+{%endblock%}

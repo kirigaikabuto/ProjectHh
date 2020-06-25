@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from university.models import Speciality, Elective,Student
 
 
-# Create your models here.
-
 class CompanyType(models.Model):
     name = models.CharField(max_length=255)
 

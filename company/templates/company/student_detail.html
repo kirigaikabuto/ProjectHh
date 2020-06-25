@@ -1,0 +1,44 @@
+{%extends 'students/room_base.html'%}
+{%load static%}
+{%block title%}
+Список компаний
+{%endblock%}
+
+{%block content%}
+<div class="header-detail" style="background-color:white;color:black">
+          <div class="hgroup">
+            <h1>{{student.first_name}} {{student.last_name}}</h1>
+
+          </div>
+
+
+          <hr>
+            <p class="lead">{{vacancy.description}}</p>
+          <ul class="details cols-3">
+              {%for i in skills%}
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span>{{i.skill.name}}</span>
+            </li>
+              {%endfor%}
+
+
+          </ul>
+
+
+      <!-- Job detail -->
+      <section>
+
+                 <div class="hgroup" >
+
+                       <h5>Специальность:{{student.speciality.name}}</h5>
+                       <h5>Электив:{{student.elective.name}}</h5>
+
+                  </div>
+      </section>
+      <!-- END Job detail -->
+    <a href="{% url 'accept_vacancy' pk=student.pk id=vacancy.pk%}">Принять</a>
+        </div>
+
+{%endblock%}
+

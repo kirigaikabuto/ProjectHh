@@ -1,0 +1,48 @@
+{%extends 'main/base.html'%}
+{%load static%}
+{%block title%}
+Авторизация
+{%endblock%}
+
+{%block content%}
+
+  <main >
+
+ <div class="login-block">
+     <h1>Компания</h1>
+        <form action="" method="post">
+          {%csrf_token%}
+          <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-email"></i></span>
+              <input type="text" class="form-control" placeholder="Username" name="username">
+            </div>
+          </div>
+
+          <hr class="hr-xs">
+
+          <div class="form-group">
+            <div class="input-group">
+               <span class="input-group-addon"><i class="ti-unlock"></i></span>
+              <input type="password" class="form-control" placeholder="Password" name="password">
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">Войти</button>
+          {%if error%}
+          {{error}}
+          {%endif%}
+           <div class="login-footer">
+            <h6>или авторизуйтесь через</h6>
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+
+        </form>
+      </div>
+    </main>
+{%endblock%}
+
